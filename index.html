@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CAT Master — Zero to CAT</title>
+<style>
+:root{--bg:#f5f6fa;--surface:#fff;--ink:#151a2b;--muted:#687083;--line:#e6e8ef;--p:#5b4ee8;--p2:#7b6cf4;--ok:#1d9b6c;--warn:#d88918;--danger:#d94b58;--shadow:0 12px 35px rgba(28,33,55,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}.app{display:flex;min-height:100vh}
+aside{width:270px;background:#101426;color:#fff;position:fixed;inset:0 auto 0 0;padding:22px 15px;overflow:auto}.logo{font-weight:900;font-size:22px;padding:4px 12px 24px}.logo span{color:#8d81ff}.nav button{width:100%;border:0;background:transparent;color:#b9bfd0;text-align:left;padding:12px 13px;border-radius:10px;margin:2px 0;cursor:pointer;font-size:14px}.nav button.active,.nav button:hover{background:#252b48;color:#fff}.nav .label{font-size:10px;color:#7f879c;text-transform:uppercase;letter-spacing:1px;margin:20px 13px 7px}
+main{margin-left:270px;width:calc(100% - 270px);padding:30px 5vw 60px}.page{display:none}.page.active{display:block}.top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:24px}.top h1{font-size:30px;margin:0 0 6px}.muted{color:var(--muted);font-size:13px;line-height:1.6}.badge{background:#eceaff;color:#5144d7;border-radius:999px;padding:9px 13px;font-size:12px;font-weight:800;white-space:nowrap}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:var(--shadow)}.stat{font-size:25px;font-weight:850;margin:7px 0}.bar{height:8px;background:#eceef4;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--p),var(--p2));width:0}.section{margin-top:28px}.section h2{font-size:19px;margin:0 0 13px}.subjectgrid,.topicgrid,.lesson-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.subject{cursor:pointer;transition:.18s}.subject:hover{transform:translateY(-2px)}.icon{height:42px;width:42px;border-radius:12px;background:#f0eeff;color:#5748e5;display:grid;place-items:center;font-weight:900;margin-bottom:12px}.subject h3{margin:0 0 5px}.subject p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.path{display:flex;gap:8px;flex-wrap:wrap}.chip{background:#f0f1f6;border:1px solid var(--line);border-radius:9px;padding:8px 10px;font-size:12px}
+.topicgrid{grid-template-columns:repeat(2,1fr)}.topic{display:flex;gap:13px;align-items:flex-start;padding:16px;background:#fff;border:1px solid var(--line);border-radius:13px}.check{width:23px;height:23px;border:2px solid #cbd0db;border-radius:7px;cursor:pointer;flex:none}.check.done{background:var(--ok);border-color:var(--ok);position:relative}.check.done:after{content:"✓";position:absolute;color:#fff;left:4px;top:-2px;font-weight:900}.topic b{font-size:14px}.topic small{display:block;color:var(--muted);margin-top:3px}
+.lesson{max-width:900px}.lesson h2{font-size:22px;margin-top:28px}.definition{background:#f0eeff;border-left:4px solid var(--p);padding:16px;border-radius:10px;line-height:1.7}.example{background:#fff;border:1px solid var(--line);padding:17px;border-radius:12px;margin:13px 0}.steps{counter-reset:s}.steps div{padding:11px 0 11px 35px;position:relative;border-bottom:1px solid var(--line)}.steps div:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:9px;width:24px;height:24px;border-radius:50%;background:#eceaff;color:#5044d5;display:grid;place-items:center;font-size:12px;font-weight:800}.btn{border:0;border-radius:9px;background:var(--p);color:#fff;padding:10px 14px;font-weight:750;cursor:pointer}.btn.secondary{background:#eceef5;color:#30374a}.q{background:#fff;border:1px solid var(--line);border-radius:13px;padding:17px;margin:12px 0}.option{display:block;width:100%;text-align:left;margin:8px 0;padding:11px;border:1px solid var(--line);background:#fff;border-radius:9px;cursor:pointer}.option:hover{border-color:var(--p)}.answer{display:none;margin-top:12px;padding:12px;border-radius:9px;background:#edf9f4;color:#176f50}.answer.show{display:block}
+.search{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:11px;margin:12px 0 16px;font-size:14px}.notice{padding:13px 15px;background:#fff8e9;border:1px solid #f1dfb7;border-radius:11px;color:#765318;font-size:13px;line-height:1.5}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}th,td{padding:12px;text-align:left;border-bottom:1px solid var(--line);font-size:13px}th{background:#f7f7fb}.mobile{display:none}
+@media(max-width:900px){aside{display:none}main{margin:0;width:100%;padding:20px 15px 75px}.cards{grid-template-columns:repeat(2,1fr)}.subjectgrid,.topicgrid,.lesson-grid{grid-template-columns:1fr}.top h1{font-size:25px}.badge{display:none}.mobile{display:block;position:fixed;bottom:12px;left:12px;right:12px;background:#101426;color:#fff;padding:12px;border-radius:13px;text-align:center;font-size:12px;z-index:5}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="logo">CAT <span>MASTER</span></div>
+  <div class="nav">
+    <div class="label">Learn</div>
+    <button class="active" onclick="page('dashboard',this)">⌂ Dashboard</button>
+    <button onclick="page('roadmap',this)">◈ Complete Roadmap</button>
+    <button onclick="page('qa',this)">∑ QA</button>
+    <button onclick="page('dilr',this)">▦ DILR</button>
+    <button onclick="page('varc',this)">Aa VARC</button>
+    <div class="label">Practice</div>
+    <button onclick="page('practice',this)">✓ Practice Lab</button>
+    <button onclick="page('pyq',this)">◫ PYQ Bank</button>
+    <button onclick="page('tests',this)">◷ Tests & Mocks</button>
+    <div class="label">Track</div>
+    <button onclick="page('mistakes',this)">⚠ Mistake Book</button>
+    <button onclick="page('strategy',this)">★ Strategy</button>
+  </div>
+</aside>
+
+<main>
+<section id="dashboard" class="page active">
+ <div class="top"><div><h1>CAT Master</h1><div class="muted">A complete zero-to-CAT learning system.</div></div><span class="badge">CAT 2026 • Study Mode</span></div>
+ <div class="cards">
+  <div class="card"><span class="muted">Overall syllabus</span><div class="stat" id="pct">0%</div><div class="bar"><i id="pbar"></i></div></div>
+  <div class="card"><span class="muted">Completed topics</span><div class="stat" id="done">0</div><span class="muted">Learn → practice → test</span></div>
+  <div class="card"><span class="muted">Study streak</span><div class="stat">0 days</div><span class="muted">Start your first session</span></div>
+  <div class="card"><span class="muted">Mistakes saved</span><div class="stat" id="mistakeCount">0</div><span class="muted">Review before mocks</span></div>
+ </div>
+ <div class="section"><h2>Start here</h2><div class="subjectgrid">
+  <div class="card subject" onclick="page('qa')"><div class="icon">∑</div><h3>QA</h3><p>Arithmetic → Algebra → Number System → Geometry → Modern Math</p></div>
+  <div class="card subject" onclick="page('dilr')"><div class="icon">▦</div><h3>DILR</h3><p>DI + LR sets, representation, selection and systematic solving.</p></div>
+  <div class="card subject" onclick="page('varc')"><div class="icon">Aa</div><h3>VARC</h3><p>RC fundamentals, inference, tone, para-based VA and accuracy.</p></div>
+ </div></div>
+ <div class="section"><h2>How this website teaches</h2><div class="cards">
+  <div class="card"><b>01 · Definition</b><p class="muted">What the concept means, in simple language.</p></div>
+  <div class="card"><b>02 · Example</b><p class="muted">A worked example showing the thinking.</p></div>
+  <div class="card"><b>03 · Practice</b><p class="muted">Easy → medium → CAT-level questions.</p></div>
+  <div class="card"><b>04 · Test</b><p class="muted">Topic tests, sectionals and mocks.</p></div>
+ </div></div>
+</section>
+
+<section id="roadmap" class="page">
+ <div class="top"><div><h1>Complete CAT Roadmap</h1><p class="muted">The learning path is intentionally ordered for a beginner.</p></div></div>
+ <div class="card">
+  <div class="path"><span class="chip">Foundation</span><span>→</span><span class="chip">Concepts</span><span>→</span><span class="chip">Topic Practice</span><span>→</span><span class="chip">PYQs</span><span>→</span><span class="chip">Sectionals</span><span>→</span><span class="chip">Mocks</span><span>→</span><span class="chip">Analysis</span></div>
+ </div>
+ <div class="section lesson-grid">
+  <div class="card"><h3>Phase 1 · Foundation</h3><p class="muted">Basic arithmetic, reading habit, logical representation and calculation discipline.</p></div>
+  <div class="card"><h3>Phase 2 · Core syllabus</h3><p class="muted">Finish every major topic with notes and solved examples.</p></div>
+  <div class="card"><h3>Phase 3 · CAT application</h3><p class="muted">Timed practice, PYQs and mixed sets.</p></div>
+  <div class="card"><h3>Phase 4 · Testing</h3><p class="muted">Sectional tests → full mocks → detailed analysis.</p></div>
+  <div class="card"><h3>Phase 5 · Revision</h3><p class="muted">Formula book, error log, weak-topic cycles.</p></div>
+  <div class="card"><h3>Phase 6 · Exam readiness</h3><p class="muted">Time allocation, question selection and mock consistency.</p></div>
+ </div>
+</section>
+
+<section id="qa" class="page">
+ <div class="top"><div><h1>QA · Quantitative Aptitude</h1><p class="muted">Complete topic checklist. Open a topic when you are ready to study it.</p></div></div>
+ <input class="search" placeholder="Search QA topics..." oninput="filterTopics('qaTopics',this.value)">
+ <div class="topicgrid" id="qaTopics"></div>
+</section>
+
+<section id="dilr" class="page">
+ <div class="top"><div><h1>DILR</h1><p class="muted">Learn how to convert information into a solvable structure.</p></div></div>
+ <input class="search" placeholder="Search DILR topics..." oninput="filterTopics('dilrTopics',this.value)">
+ <div class="topicgrid" id="dilrTopics"></div>
+</section>
+
+<section id="varc" class="page">
+ <div class="top"><div><h1>VARC</h1><p class="muted">Reading is a skill: comprehension, inference and elimination are trained systematically.</p></div></div>
+ <input class="search" placeholder="Search VARC topics..." oninput="filterTopics('varcTopics',this.value)">
+ <div class="topicgrid" id="varcTopics"></div>
+</section>
+
+<section id="practice" class="page">
+ <div class="top"><div><h1>Practice Lab</h1><p class="muted">One concept at a time. Reveal the solution only after attempting.</p></div></div>
+ <div class="lesson">
+  <h2>QA · Percentages</h2>
+  <div class="definition"><b>Definition:</b> Percentage means “per hundred”. For example, 20% means 20 out of every 100, so 20% = 20/100 = 1/5.</div>
+  <div class="example"><b>Worked example:</b><br>20% of 250 = (20/100) × 250 = <b>50</b>.</div>
+  <div class="q"><b>Q1.</b> What is 15% of 200?
+   <button class="option" onclick="answer(this,'40')">A. 20</button><button class="option" onclick="answer(this,'40')">B. 30</button><button class="option" onclick="answer(this,'40')">C. 40</button><button class="option" onclick="answer(this,'40')">D. 50</button>
+   <div class="answer">Correct answer: <b>30</b>. 15/100 × 200 = 30.</div></div>
+  <div class="q"><b>Q2.</b> A number increases from 100 to 120. What is the percentage increase?
+   <button class="option" onclick="answer(this,'20')">A. 10%</button><button class="option" onclick="answer(this,'20')">B. 15%</button><button class="option" onclick="answer(this,'20')">C. 20%</button><button class="option" onclick="answer(this,'20')">D. 25%</button>
+   <div class="answer">Correct answer: <b>20%</b>. Increase = 20; percentage increase = 20/100 × 100 = 20%.</div></div>
+ </div>
+</section>
+
+<section id="pyq" class="page">
+ <div class="top"><div><h1>PYQ Bank</h1><p class="muted">Previous-year-question practice area.</p></div></div>
+ <div class="notice">PYQs should be added from licensed/officially available sources. This build uses practice placeholders rather than reproducing a large copyrighted question bank.</div>
+ <div class="section card"><h3>Recommended PYQ workflow</h3><div class="steps"><div>Attempt without solution.</div><div>Record time and confidence.</div><div>Check the official/authorized solution.</div><div>Tag the question: Concept / Calculation / Selection / Time management.</div><div>Re-attempt after 7–14 days.</div></div></div>
+</section>
+
+<section id="tests" class="page">
+ <div class="top"><div><h1>Tests & Mocks</h1><p class="muted">Testing is a separate skill from learning.</p></div></div>
+ <div class="lesson-grid">
+  <div class="card"><h3>Topic Test</h3><p class="muted">10–20 questions from one topic.</p><button class="btn" onclick="page('practice')">Start</button></div>
+  <div class="card"><h3>Sectional Test</h3><p class="muted">Timed VARC / DILR / QA practice.</p><button class="btn secondary">Coming next</button></div>
+  <div class="card"><h3>Full Mock</h3><p class="muted">Full-length CAT-style simulation with analysis.</p><button class="btn secondary">Coming next</button></div>
+ </div>
+</section>
+
+<section id="mistakes" class="page">
+ <div class="top"><div><h1>Mistake Book</h1><p class="muted">Every important mistake becomes a future revision point.</p></div></div>
+ <div class="card"><h3>Use this 5-tag system</h3><div class="path"><span class="chip">Concept gap</span><span class="chip">Calculation</span><span class="chip">Misread</span><span class="chip">Wrong approach</span><span class="chip">Time/selection</span></div><p class="muted">After every test, log the reason—not just the question number.</p></div>
+</section>
+
+<section id="strategy" class="page">
+ <div class="top"><div><h1>Study Strategy</h1><p class="muted">A beginner-friendly operating system for preparation.</p></div></div>
+ <div class="card"><h3>Daily session template</h3><div class="steps"><div>Concept learning — 30–60 min.</div><div>Solved examples — 20–30 min.</div><div>Untimed practice — 30–45 min.</div><div>Timed practice — 20–30 min.</div><div>Review + mistake log — 15 min.</div></div></div>
+ <div class="section card"><h3>Golden rule</h3><p class="muted">Do not measure preparation only by hours watched. Measure concepts understood, questions attempted, accuracy, time and mistakes corrected.</p></div>
+</section>
+</main>
+</div>
+<div class="mobile">CAT MASTER • Learn → Practice → PYQ → Test → Analyse</div>
+
+<script>
+const syllabus={
+qa:["Number System","Percentages","Ratio & Proportion","Averages","Profit & Loss","Simple & Compound Interest","Mixtures & Alligation","Time & Work","Time, Speed & Distance","Linear Equations","Quadratic Equations","Inequalities","Functions","Progressions","Logarithms","Indices & Surds","Geometry Basics","Triangles","Quadrilaterals & Polygons","Circles","Coordinate Geometry","Mensuration","Permutation & Combination","Probability","Set Theory"],
+dilr:["Tables & Caselets","Bar Graphs","Line Graphs","Pie Charts","Mixed DI","Data Comparison","Arrangements","Distribution","Selection & Grouping","Scheduling","Games & Tournaments","Routes & Networks","Ranking & Ordering","Venn Diagrams","Binary Logic","Conditional Logic","Matrix & Grid Sets"],
+varc:["RC Fundamentals","Main Idea","Author's Purpose","Tone","Inference","Fact vs Inference","Supporting Idea","Paragraph Function","Para Summary","Para Jumbles","Odd Sentence Out","Sentence Placement","Reading Speed","Elimination & Option Analysis"]
+};
+let done=JSON.parse(localStorage.getItem("catMasterDone")||"{}");
+function renderTopics(elId,list){document.getElementById(elId).innerHTML=list.map((x,i)=>`<div class="topic" data-name="${x.toLowerCase()}"><div class="check ${done[x]?'done':''}" onclick="toggle('${x.replaceAll("'","\\'")}')"></div><div><b>${x}</b><small>${done[x]?'Completed':'Not started'} • Open for detailed lesson</small></div></div>`).join("")}
+function toggle(x){done[x]=!done[x];localStorage.setItem("catMasterDone",JSON.stringify(done));renderAll();stats()}
+function renderAll(){renderTopics("qaTopics",syllabus.qa);renderTopics("dilrTopics",syllabus.dilr);renderTopics("varcTopics",syllabus.varc)}
+function stats(){let all=Object.values(syllabus).flat();let d=all.filter(x=>done[x]).length;let pct=Math.round(d/all.length*100);document.getElementById("done").textContent=d+"/"+all.length;document.getElementById("pct").textContent=pct+"%";document.getElementById("pbar").style.width=pct+"%"}
+function page(id,btn){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));if(btn)btn.classList.add("active");scrollTo({top:0,behavior:"smooth"})}
+function filterTopics(id,q){q=q.toLowerCase();document.querySelectorAll("#"+id+" .topic").forEach(x=>x.style.display=x.dataset.name.includes(q)?"flex":"none")}
+function answer(el,correct){let box=el.parentElement.querySelector(".answer");box.classList.add("show");if(el.textContent.trim().startsWith("B.") && correct==="40"){}}
+renderAll();stats();
+</script>
+</body>
+</html>
