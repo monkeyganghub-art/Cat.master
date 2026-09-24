@@ -2,157 +2,509 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
 <title>CAT Master — Zero to CAT</title>
 <style>
-:root{--bg:#f5f6fa;--surface:#fff;--ink:#151a2b;--muted:#687083;--line:#e6e8ef;--p:#5b4ee8;--p2:#7b6cf4;--ok:#1d9b6c;--warn:#d88918;--danger:#d94b58;--shadow:0 12px 35px rgba(28,33,55,.08)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}.app{display:flex;min-height:100vh}
-aside{width:270px;background:#101426;color:#fff;position:fixed;inset:0 auto 0 0;padding:22px 15px;overflow:auto}.logo{font-weight:900;font-size:22px;padding:4px 12px 24px}.logo span{color:#8d81ff}.nav button{width:100%;border:0;background:transparent;color:#b9bfd0;text-align:left;padding:12px 13px;border-radius:10px;margin:2px 0;cursor:pointer;font-size:14px}.nav button.active,.nav button:hover{background:#252b48;color:#fff}.nav .label{font-size:10px;color:#7f879c;text-transform:uppercase;letter-spacing:1px;margin:20px 13px 7px}
-main{margin-left:270px;width:calc(100% - 270px);padding:30px 5vw 60px}.page{display:none}.page.active{display:block}.top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:24px}.top h1{font-size:30px;margin:0 0 6px}.muted{color:var(--muted);font-size:13px;line-height:1.6}.badge{background:#eceaff;color:#5144d7;border-radius:999px;padding:9px 13px;font-size:12px;font-weight:800;white-space:nowrap}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:var(--shadow)}.stat{font-size:25px;font-weight:850;margin:7px 0}.bar{height:8px;background:#eceef4;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--p),var(--p2));width:0}.section{margin-top:28px}.section h2{font-size:19px;margin:0 0 13px}.subjectgrid,.topicgrid,.lesson-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.subject{cursor:pointer;transition:.18s}.subject:hover{transform:translateY(-2px)}.icon{height:42px;width:42px;border-radius:12px;background:#f0eeff;color:#5748e5;display:grid;place-items:center;font-weight:900;margin-bottom:12px}.subject h3{margin:0 0 5px}.subject p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
-.path{display:flex;gap:8px;flex-wrap:wrap}.chip{background:#f0f1f6;border:1px solid var(--line);border-radius:9px;padding:8px 10px;font-size:12px}
-.topicgrid{grid-template-columns:repeat(2,1fr)}.topic{display:flex;gap:13px;align-items:flex-start;padding:16px;background:#fff;border:1px solid var(--line);border-radius:13px}.check{width:23px;height:23px;border:2px solid #cbd0db;border-radius:7px;cursor:pointer;flex:none}.check.done{background:var(--ok);border-color:var(--ok);position:relative}.check.done:after{content:"✓";position:absolute;color:#fff;left:4px;top:-2px;font-weight:900}.topic b{font-size:14px}.topic small{display:block;color:var(--muted);margin-top:3px}
-.lesson{max-width:900px}.lesson h2{font-size:22px;margin-top:28px}.definition{background:#f0eeff;border-left:4px solid var(--p);padding:16px;border-radius:10px;line-height:1.7}.example{background:#fff;border:1px solid var(--line);padding:17px;border-radius:12px;margin:13px 0}.steps{counter-reset:s}.steps div{padding:11px 0 11px 35px;position:relative;border-bottom:1px solid var(--line)}.steps div:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:9px;width:24px;height:24px;border-radius:50%;background:#eceaff;color:#5044d5;display:grid;place-items:center;font-size:12px;font-weight:800}.btn{border:0;border-radius:9px;background:var(--p);color:#fff;padding:10px 14px;font-weight:750;cursor:pointer}.btn.secondary{background:#eceef5;color:#30374a}.q{background:#fff;border:1px solid var(--line);border-radius:13px;padding:17px;margin:12px 0}.option{display:block;width:100%;text-align:left;margin:8px 0;padding:11px;border:1px solid var(--line);background:#fff;border-radius:9px;cursor:pointer}.option:hover{border-color:var(--p)}.answer{display:none;margin-top:12px;padding:12px;border-radius:9px;background:#edf9f4;color:#176f50}.answer.show{display:block}
-.search{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:11px;margin:12px 0 16px;font-size:14px}.notice{padding:13px 15px;background:#fff8e9;border:1px solid #f1dfb7;border-radius:11px;color:#765318;font-size:13px;line-height:1.5}
-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}th,td{padding:12px;text-align:left;border-bottom:1px solid var(--line);font-size:13px}th{background:#f7f7fb}.mobile{display:none}
-@media(max-width:900px){aside{display:none}main{margin:0;width:100%;padding:20px 15px 75px}.cards{grid-template-columns:repeat(2,1fr)}.subjectgrid,.topicgrid,.lesson-grid{grid-template-columns:1fr}.top h1{font-size:25px}.badge{display:none}.mobile{display:block;position:fixed;bottom:12px;left:12px;right:12px;background:#101426;color:#fff;padding:12px;border-radius:13px;text-align:center;font-size:12px;z-index:5}}
+:root{--bg:#f5f7fb;--card:#fff;--ink:#111827;--muted:#667085;--line:#e5e7eb;--brand:#111827;--accent:#2563eb;--soft:#eef4ff;--good:#0f9d58;--warn:#b7791f;--danger:#c2410c}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+button,input,select{font:inherit}button{cursor:pointer}.app{min-height:100vh}.top{position:sticky;top:0;z-index:20;background:rgba(245,247,251,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:14px 16px}.brand{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1120px;margin:auto}.logo{font-weight:900;font-size:20px}.pill{background:#111827;color:white;border-radius:999px;padding:6px 10px;font-size:12px}.wrap{max-width:1120px;margin:auto;padding:20px 16px 90px}
+.nav{display:flex;gap:8px;overflow:auto;padding:4px 0 14px}.nav button{border:1px solid var(--line);background:white;border-radius:12px;padding:9px 13px;white-space:nowrap}.nav button.active{background:var(--brand);color:white;border-color:var(--brand)}
+.hero{background:linear-gradient(135deg,#111827,#26324f);color:white;border-radius:24px;padding:24px;margin:8px 0 18px}.hero h1{margin:0 0 6px;font-size:32px}.hero p{margin:0;color:#dbe3f0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}.card h3,.card h2{margin-top:0}.muted{color:var(--muted)}.big{font-size:28px;font-weight:900}.progress{height:9px;background:#e9edf4;border-radius:99px;overflow:hidden}.progress>i{display:block;height:100%;background:var(--accent);border-radius:99px}.topic{display:flex;justify-content:space-between;align-items:center;gap:12px}.topic + .topic{margin-top:10px}.topic button{border:0;background:var(--soft);color:#174ea6;border-radius:11px;padding:8px 11px}.check{width:20px;height:20px;accent-color:var(--accent)}
+.search{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:14px;background:white;outline:none}.search:focus{border-color:var(--accent);box-shadow:0 0 0 3px #2563eb18}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#f0f2f5;font-size:12px;margin:3px 4px 3px 0}.blue{background:#eaf2ff;color:#175cd3}.green{background:#e8f7ee;color:#087443}.yellow{background:#fff6db;color:#8a5b00}
+.lesson{background:white;border:1px solid var(--line);border-radius:22px;padding:22px;margin-top:14px}.lesson h2{font-size:26px;margin:0 0 5px}.lesson h3{margin-top:25px}.formula{background:#0b1020;color:#f8fafc;padding:14px;border-radius:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto}.example{background:#f8fafc;border-left:4px solid var(--accent);padding:14px;border-radius:10px}.tip{background:#fff8e6;border:1px solid #f3d98b;padding:14px;border-radius:12px}.mistake{background:#fff2ee;border:1px solid #f5c6b8;padding:14px;border-radius:12px}
+.q{border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}.opts button{display:block;width:100%;text-align:left;background:white;border:1px solid var(--line);padding:11px;border-radius:10px;margin:7px 0}.opts button:hover{background:#f7f9fc}.answer{margin-top:10px;padding:12px;background:#effaf3;border-radius:10px;display:none}.show{display:block}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap}.toolbar button{border:1px solid var(--line);background:white;border-radius:10px;padding:9px 12px}.primary{background:var(--brand)!important;color:white!important;border-color:var(--brand)!important}
+.small{font-size:13px}.footer{position:fixed;bottom:0;left:0;right:0;background:#0b1020;color:white;padding:11px;text-align:center;font-size:13px;z-index:30}
+.hidden{display:none!important}@media(max-width:760px){.grid{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.hero h1{font-size:26px}.wrap{padding-top:12px}.card{padding:15px}.lesson{padding:17px}}
 </style>
 </head>
 <body>
 <div class="app">
-<aside>
-  <div class="logo">CAT <span>MASTER</span></div>
-  <div class="nav">
-    <div class="label">Learn</div>
-    <button class="active" onclick="page('dashboard',this)">⌂ Dashboard</button>
-    <button onclick="page('roadmap',this)">◈ Complete Roadmap</button>
-    <button onclick="page('qa',this)">∑ QA</button>
-    <button onclick="page('dilr',this)">▦ DILR</button>
-    <button onclick="page('varc',this)">Aa VARC</button>
-    <div class="label">Practice</div>
-    <button onclick="page('practice',this)">✓ Practice Lab</button>
-    <button onclick="page('pyq',this)">◫ PYQ Bank</button>
-    <button onclick="page('tests',this)">◷ Tests & Mocks</button>
-    <div class="label">Track</div>
-    <button onclick="page('mistakes',this)">⚠ Mistake Book</button>
-    <button onclick="page('strategy',this)">★ Strategy</button>
-  </div>
-</aside>
-
-<main>
-<section id="dashboard" class="page active">
- <div class="top"><div><h1>CAT Master</h1><div class="muted">A complete zero-to-CAT learning system.</div></div><span class="badge">CAT 2026 • Study Mode</span></div>
- <div class="cards">
-  <div class="card"><span class="muted">Overall syllabus</span><div class="stat" id="pct">0%</div><div class="bar"><i id="pbar"></i></div></div>
-  <div class="card"><span class="muted">Completed topics</span><div class="stat" id="done">0</div><span class="muted">Learn → practice → test</span></div>
-  <div class="card"><span class="muted">Study streak</span><div class="stat">0 days</div><span class="muted">Start your first session</span></div>
-  <div class="card"><span class="muted">Mistakes saved</span><div class="stat" id="mistakeCount">0</div><span class="muted">Review before mocks</span></div>
- </div>
- <div class="section"><h2>Start here</h2><div class="subjectgrid">
-  <div class="card subject" onclick="page('qa')"><div class="icon">∑</div><h3>QA</h3><p>Arithmetic → Algebra → Number System → Geometry → Modern Math</p></div>
-  <div class="card subject" onclick="page('dilr')"><div class="icon">▦</div><h3>DILR</h3><p>DI + LR sets, representation, selection and systematic solving.</p></div>
-  <div class="card subject" onclick="page('varc')"><div class="icon">Aa</div><h3>VARC</h3><p>RC fundamentals, inference, tone, para-based VA and accuracy.</p></div>
- </div></div>
- <div class="section"><h2>How this website teaches</h2><div class="cards">
-  <div class="card"><b>01 · Definition</b><p class="muted">What the concept means, in simple language.</p></div>
-  <div class="card"><b>02 · Example</b><p class="muted">A worked example showing the thinking.</p></div>
-  <div class="card"><b>03 · Practice</b><p class="muted">Easy → medium → CAT-level questions.</p></div>
-  <div class="card"><b>04 · Test</b><p class="muted">Topic tests, sectionals and mocks.</p></div>
- </div></div>
-</section>
-
-<section id="roadmap" class="page">
- <div class="top"><div><h1>Complete CAT Roadmap</h1><p class="muted">The learning path is intentionally ordered for a beginner.</p></div></div>
- <div class="card">
-  <div class="path"><span class="chip">Foundation</span><span>→</span><span class="chip">Concepts</span><span>→</span><span class="chip">Topic Practice</span><span>→</span><span class="chip">PYQs</span><span>→</span><span class="chip">Sectionals</span><span>→</span><span class="chip">Mocks</span><span>→</span><span class="chip">Analysis</span></div>
- </div>
- <div class="section lesson-grid">
-  <div class="card"><h3>Phase 1 · Foundation</h3><p class="muted">Basic arithmetic, reading habit, logical representation and calculation discipline.</p></div>
-  <div class="card"><h3>Phase 2 · Core syllabus</h3><p class="muted">Finish every major topic with notes and solved examples.</p></div>
-  <div class="card"><h3>Phase 3 · CAT application</h3><p class="muted">Timed practice, PYQs and mixed sets.</p></div>
-  <div class="card"><h3>Phase 4 · Testing</h3><p class="muted">Sectional tests → full mocks → detailed analysis.</p></div>
-  <div class="card"><h3>Phase 5 · Revision</h3><p class="muted">Formula book, error log, weak-topic cycles.</p></div>
-  <div class="card"><h3>Phase 6 · Exam readiness</h3><p class="muted">Time allocation, question selection and mock consistency.</p></div>
- </div>
-</section>
-
-<section id="qa" class="page">
- <div class="top"><div><h1>QA · Quantitative Aptitude</h1><p class="muted">Complete topic checklist. Open a topic when you are ready to study it.</p></div></div>
- <input class="search" placeholder="Search QA topics..." oninput="filterTopics('qaTopics',this.value)">
- <div class="topicgrid" id="qaTopics"></div>
-</section>
-
-<section id="dilr" class="page">
- <div class="top"><div><h1>DILR</h1><p class="muted">Learn how to convert information into a solvable structure.</p></div></div>
- <input class="search" placeholder="Search DILR topics..." oninput="filterTopics('dilrTopics',this.value)">
- <div class="topicgrid" id="dilrTopics"></div>
-</section>
-
-<section id="varc" class="page">
- <div class="top"><div><h1>VARC</h1><p class="muted">Reading is a skill: comprehension, inference and elimination are trained systematically.</p></div></div>
- <input class="search" placeholder="Search VARC topics..." oninput="filterTopics('varcTopics',this.value)">
- <div class="topicgrid" id="varcTopics"></div>
-</section>
-
-<section id="practice" class="page">
- <div class="top"><div><h1>Practice Lab</h1><p class="muted">One concept at a time. Reveal the solution only after attempting.</p></div></div>
- <div class="lesson">
-  <h2>QA · Percentages</h2>
-  <div class="definition"><b>Definition:</b> Percentage means “per hundred”. For example, 20% means 20 out of every 100, so 20% = 20/100 = 1/5.</div>
-  <div class="example"><b>Worked example:</b><br>20% of 250 = (20/100) × 250 = <b>50</b>.</div>
-  <div class="q"><b>Q1.</b> What is 15% of 200?
-   <button class="option" onclick="answer(this,'40')">A. 20</button><button class="option" onclick="answer(this,'40')">B. 30</button><button class="option" onclick="answer(this,'40')">C. 40</button><button class="option" onclick="answer(this,'40')">D. 50</button>
-   <div class="answer">Correct answer: <b>30</b>. 15/100 × 200 = 30.</div></div>
-  <div class="q"><b>Q2.</b> A number increases from 100 to 120. What is the percentage increase?
-   <button class="option" onclick="answer(this,'20')">A. 10%</button><button class="option" onclick="answer(this,'20')">B. 15%</button><button class="option" onclick="answer(this,'20')">C. 20%</button><button class="option" onclick="answer(this,'20')">D. 25%</button>
-   <div class="answer">Correct answer: <b>20%</b>. Increase = 20; percentage increase = 20/100 × 100 = 20%.</div></div>
- </div>
-</section>
-
-<section id="pyq" class="page">
- <div class="top"><div><h1>PYQ Bank</h1><p class="muted">Previous-year-question practice area.</p></div></div>
- <div class="notice">PYQs should be added from licensed/officially available sources. This build uses practice placeholders rather than reproducing a large copyrighted question bank.</div>
- <div class="section card"><h3>Recommended PYQ workflow</h3><div class="steps"><div>Attempt without solution.</div><div>Record time and confidence.</div><div>Check the official/authorized solution.</div><div>Tag the question: Concept / Calculation / Selection / Time management.</div><div>Re-attempt after 7–14 days.</div></div></div>
-</section>
-
-<section id="tests" class="page">
- <div class="top"><div><h1>Tests & Mocks</h1><p class="muted">Testing is a separate skill from learning.</p></div></div>
- <div class="lesson-grid">
-  <div class="card"><h3>Topic Test</h3><p class="muted">10–20 questions from one topic.</p><button class="btn" onclick="page('practice')">Start</button></div>
-  <div class="card"><h3>Sectional Test</h3><p class="muted">Timed VARC / DILR / QA practice.</p><button class="btn secondary">Coming next</button></div>
-  <div class="card"><h3>Full Mock</h3><p class="muted">Full-length CAT-style simulation with analysis.</p><button class="btn secondary">Coming next</button></div>
- </div>
-</section>
-
-<section id="mistakes" class="page">
- <div class="top"><div><h1>Mistake Book</h1><p class="muted">Every important mistake becomes a future revision point.</p></div></div>
- <div class="card"><h3>Use this 5-tag system</h3><div class="path"><span class="chip">Concept gap</span><span class="chip">Calculation</span><span class="chip">Misread</span><span class="chip">Wrong approach</span><span class="chip">Time/selection</span></div><p class="muted">After every test, log the reason—not just the question number.</p></div>
-</section>
-
-<section id="strategy" class="page">
- <div class="top"><div><h1>Study Strategy</h1><p class="muted">A beginner-friendly operating system for preparation.</p></div></div>
- <div class="card"><h3>Daily session template</h3><div class="steps"><div>Concept learning — 30–60 min.</div><div>Solved examples — 20–30 min.</div><div>Untimed practice — 30–45 min.</div><div>Timed practice — 20–30 min.</div><div>Review + mistake log — 15 min.</div></div></div>
- <div class="section card"><h3>Golden rule</h3><p class="muted">Do not measure preparation only by hours watched. Measure concepts understood, questions attempted, accuracy, time and mistakes corrected.</p></div>
-</section>
+<header class="top"><div class="brand"><div class="logo">🎓 CAT MASTER</div><span class="pill">ZERO → CAT</span></div></header>
+<main class="wrap">
+<nav class="nav" id="nav"></nav>
+<section id="view"></section>
 </main>
+<div class="footer">Learn → Practice → PYQ-style → Test → Analyse</div>
 </div>
-<div class="mobile">CAT MASTER • Learn → Practice → PYQ → Test → Analyse</div>
 
 <script>
+const KEY='cat_master_v2_progress';
+const state=JSON.parse(localStorage.getItem(KEY)||'{"done":{},"scores":{},"mistakes":[]}');
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
 const syllabus={
-qa:["Number System","Percentages","Ratio & Proportion","Averages","Profit & Loss","Simple & Compound Interest","Mixtures & Alligation","Time & Work","Time, Speed & Distance","Linear Equations","Quadratic Equations","Inequalities","Functions","Progressions","Logarithms","Indices & Surds","Geometry Basics","Triangles","Quadrilaterals & Polygons","Circles","Coordinate Geometry","Mensuration","Permutation & Combination","Probability","Set Theory"],
-dilr:["Tables & Caselets","Bar Graphs","Line Graphs","Pie Charts","Mixed DI","Data Comparison","Arrangements","Distribution","Selection & Grouping","Scheduling","Games & Tournaments","Routes & Networks","Ranking & Ordering","Venn Diagrams","Binary Logic","Conditional Logic","Matrix & Grid Sets"],
-varc:["RC Fundamentals","Main Idea","Author's Purpose","Tone","Inference","Fact vs Inference","Supporting Idea","Paragraph Function","Para Summary","Para Jumbles","Odd Sentence Out","Sentence Placement","Reading Speed","Elimination & Option Analysis"]
+QA:[
+["Number System","Foundation: integers, factors, multiples, divisibility, remainders, HCF/LCM, cyclicity"],
+["Percentages","Percentage basics, change, reverse percentage, successive change, applications"],
+["Ratio & Proportion","Ratios, equivalent ratios, proportionality, variation"],
+["Averages","Simple/weighted average, combined average, replacement"],
+["Profit & Loss","CP, SP, discount, marked price, successive discounts"],
+["Simple & Compound Interest","SI, CI, growth/decay, effective rates"],
+["Mixtures & Alligation","Weighted average, allegation rule, replacement"],
+["Time Speed Distance","Relative speed, trains, boats, races"],
+["Time & Work","Work rates, efficiency, pipes/cisterns"],
+["Algebra Basics","Identities, equations, inequalities, simplification"],
+["Linear Equations","One/two variable equations, word problems"],
+["Quadratic Equations","Roots, relations, graphs, parameter basics"],
+["Functions","Domain, range, composition, graphs"],
+["Sequences & Series","AP, GP, special series"],
+["Logarithms","Laws, equations, base changes"],
+["Geometry Basics","Angles, lines, triangles, polygons"],
+["Triangles","Similarity, congruence, centers, area"],
+["Circles","Chord, tangent, secant, angle theorems"],
+["Mensuration","2D/3D perimeter, area, surface area, volume"],
+["Coordinate Geometry","Distance, slope, section, line basics"],
+["Number Theory","Prime factorisation, divisors, modular arithmetic"],
+["Set Theory","Sets, Venn diagrams, inclusion-exclusion"],
+["Permutation & Combination","Counting, arrangements, selections"],
+["Probability","Sample space, conditional probability, independence"],
+["Modern Math","Binomial basics, counting applications"]
+],
+DILR:[
+["Tables & Data","Read tables, totals, ratios, percentages, missing values"],
+["Bar & Line Charts","Comparison, trends, interpolation"],
+["Pie Charts","Angles, shares, conversion between units"],
+["Caselets","Translate text into a structured table"],
+["Arrangements","Linear/circular ordering and constraints"],
+["Distribution","Distribute people/items under conditions"],
+["Selection","Groups, committees, binary choices"],
+["Games & Tournaments","Points tables, wins/draws/losses, rankings"],
+["Venn & Sets","2-set/3-set counting and overlaps"],
+["Routes & Networks","Paths, degrees, shortest route reasoning"],
+["Scheduling","Days, slots, rooms and constraints"],
+["Binary Logic","Yes/no, truth tables, conditional statements"],
+["DI + Arithmetic","Data interpretation mixed with percentages/averages"],
+["LR + Quant","Sets requiring equations, ratios or counting"]
+],
+VARC:[
+["Reading Comprehension","Passage structure, main idea, tone, inference, elimination"],
+["Main Idea","Central claim vs supporting detail"],
+["Inference","What follows logically from the passage"],
+["Author Tone","Neutral, critical, skeptical, appreciative, analytical"],
+["Para Summary","Compress argument without adding assumptions"],
+["Para Jumbles","Logical order, opening sentence, mandatory pairs"],
+["Odd Sentence Out","Find sentence that breaks the paragraph flow"],
+["Sentence Placement","Find best location using references and connectors"],
+["Vocabulary in Context","Meaning from surrounding context"],
+["Reading Strategy","Speed, annotation, question-first vs passage-first"],
+["Critical Reasoning Basics","Premise, conclusion, assumption, evidence"],
+["RC Practice Sets","Mixed passages with timed practice"]
+]
 };
-let done=JSON.parse(localStorage.getItem("catMasterDone")||"{}");
-function renderTopics(elId,list){document.getElementById(elId).innerHTML=list.map((x,i)=>`<div class="topic" data-name="${x.toLowerCase()}"><div class="check ${done[x]?'done':''}" onclick="toggle('${x.replaceAll("'","\\'")}')"></div><div><b>${x}</b><small>${done[x]?'Completed':'Not started'} • Open for detailed lesson</small></div></div>`).join("")}
-function toggle(x){done[x]=!done[x];localStorage.setItem("catMasterDone",JSON.stringify(done));renderAll();stats()}
-function renderAll(){renderTopics("qaTopics",syllabus.qa);renderTopics("dilrTopics",syllabus.dilr);renderTopics("varcTopics",syllabus.varc)}
-function stats(){let all=Object.values(syllabus).flat();let d=all.filter(x=>done[x]).length;let pct=Math.round(d/all.length*100);document.getElementById("done").textContent=d+"/"+all.length;document.getElementById("pct").textContent=pct+"%";document.getElementById("pbar").style.width=pct+"%"}
-function page(id,btn){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));if(btn)btn.classList.add("active");scrollTo({top:0,behavior:"smooth"})}
-function filterTopics(id,q){q=q.toLowerCase();document.querySelectorAll("#"+id+" .topic").forEach(x=>x.style.display=x.dataset.name.includes(q)?"flex":"none")}
-function answer(el,correct){let box=el.parentElement.querySelector(".answer");box.classList.add("show");if(el.textContent.trim().startsWith("B.") && correct==="40"){}}
-renderAll();stats();
+
+const lessons={
+"QA|Percentages":{
+title:"Percentages — Zero to CAT",
+intro:"Percentage is a way to express a quantity as a fraction of 100. CAT uses it inside arithmetic, DI, profit-loss, mixtures, averages and many word problems.",
+sections:[
+["1. Definition","A percentage tells us 'how much out of 100'. 20% means 20 out of 100, so 20% = 20/100 = 1/5."],
+["2. Core conversion","Fraction → percentage: multiply by 100. Percentage → fraction: divide by 100. Decimal → percentage: multiply by 100."],
+["3. Percentage of a number","To find x% of N, calculate (x/100)×N. Example: 18% of 250 = 18×2.5 = 45."],
+["4. Increase / decrease","If a value P increases by r%, new value = P(1+r/100). If it decreases by r%, new value = P(1-r/100)."],
+["5. Successive changes","For changes a% and b%, net percentage change = a+b+ab/100 when both are increases; use signs for decreases. Example: +20%, then -20% gives 20-20-4 = -4%."],
+["6. Reverse percentage","If final value after a 25% increase is 500, original = 500/1.25 = 400. Do not subtract 25% from the final value."],
+["7. Percentage points vs percent","A rise from 40% to 50% is +10 percentage points, but relative increase is 25%."],
+["8. CAT connection","Percentages are often hidden inside profit-loss, population, salaries, DI and mixtures. Train yourself to identify the base quantity first."]
+],
+examples:[
+["Example 1","A shirt priced ₹800 is discounted by 15%. Discount = 120, so selling price = ₹680."],
+["Example 2","A number increases from 240 to 300. Increase = 60. Percentage increase = 60/240×100 = 25%."],
+["Example 3","After a 20% decrease, a price becomes ₹640. Original = 640/0.8 = ₹800."]
+],
+formula:["x% of N = xN/100","New after r% increase = Old × (100+r)/100","New after r% decrease = Old × (100-r)/100","Two successive changes a%, b%: net = a+b+ab/100 (use signed a,b)"],
+tips:["Always ask: 'percentage of what?' The denominator is the base.","For 10%, 5%, 1% calculate mentally whenever possible.","For reverse percentage, divide by the multiplier instead of reversing the operation."],
+mistakes:["Treating +20% and -20% as zero change.","Using the final value as denominator when calculating percentage increase.","Confusing percentage points with percentage change."]
+],
+"QA|Averages":{
+title:"Averages — Zero to CAT",intro:"An average is a central value. For equal weights it is total divided by number of observations.",
+sections:[
+["1. Definition","Average = Sum of observations ÷ Number of observations."],
+["2. Reverse thinking","If average of 8 numbers is 25, total is 8×25 = 200."],
+["3. Combined average","When groups have different sizes, total both groups and divide by total people. Do not simply average the two averages unless group sizes are equal."],
+["4. Replacement","If one value x is replaced by y, change in average = (y-x)/n."],
+["5. Weighted average","If quantities have weights, average = Σ(weight×value)/Σweight."],
+["6. CAT connection","Averages combine naturally with mixtures, DI, salaries, marks, ages and replacement questions."]
+],
+examples:[
+["Example 1","Average of 6 numbers is 18. Their sum is 108."],
+["Example 2","Average of 10 students is 60. One student scoring 75 replaces one scoring 55. New average = 60+(20/10)=62."],
+["Example 3","Group A: 20 people average 30; Group B: 30 people average 40. Combined average = (600+1200)/50 = 36."]
+],
+formula:["Average = Sum/n","Sum = Average×n","Replacement change = (new−old)/n","Combined average = (n1a1+n2a2)/(n1+n2)"],
+tips:["Convert average questions into total-sum questions early.","Averages are weighted by group size."],
+mistakes:["Taking the average of two averages when group sizes differ.","Forgetting the denominator after a replacement."]
+],
+"QA|Ratio & Proportion":{
+title:"Ratio & Proportion — Zero to CAT",intro:"A ratio compares quantities using the same unit. Proportion says two ratios are equal.",
+sections:[
+["1. Ratio","a:b means a/b. If boys:girls = 3:2, there are 5 equal parts in total."],
+["2. Scaling","3:2 is the same ratio as 6:4 or 30:20."],
+["3. Division in a ratio","To divide ₹500 in 3:2, total parts = 5. One part = ₹100, so shares are ₹300 and ₹200."],
+["4. Proportion","a:b = c:d means ad = bc."],
+["5. Direct variation","If y is directly proportional to x, y/x is constant."],
+["6. Inverse variation","If y is inversely proportional to x, xy is constant."],
+["7. CAT connection","Ratios appear in mixtures, work, speed, geometry, DI and partnership."]
+],
+examples:[
+["Example 1","A:B=4:7 and total is 55. Total parts=11, one part=5. A=20, B=35."],
+["Example 2","If x:y=2:3 and y:z=4:5, make y common: x:y=8:12 and y:z=12:15, so x:y:z=8:12:15."]
+],
+formula:["a:b = a/b","If a:b=m:n and total=T, shares = mT/(m+n), nT/(m+n)","Direct: y/x = constant","Inverse: xy = constant"],
+tips:["Always make units consistent before forming a ratio.","When two ratios share a term, equalise that term first."],
+mistakes:["Adding ratios without a common basis.","Forgetting that ratio is unit-sensitive."]
+],
+"QA|Profit & Loss":{
+title:"Profit & Loss — Zero to CAT",intro:"Profit or loss compares selling price with cost price. CAT frequently combines this with discounts and successive changes.",
+sections:[
+["1. Definitions","CP = cost price. SP = selling price. Profit = SP−CP. Loss = CP−SP."],
+["2. Percentages","Profit% = Profit/CP×100. Loss% = Loss/CP×100."],
+["3. Discount","Discount = Marked Price−Selling Price. Discount% is usually calculated on marked price."],
+["4. Successive discounts","Discounts are multiplicative, not simply additive. Two discounts a% and b% give net discount a+b−ab/100."],
+["5. Reverse problems","If profit is 25%, SP = 1.25×CP. If SP is known, divide by 1.25 to recover CP."],
+["6. CAT connection","Watch the denominator: profit/loss percentage uses CP; discount percentage uses MP."]
+],
+examples:[
+["Example 1","CP ₹400, SP ₹460. Profit ₹60 = 15% of CP."],
+["Example 2","MP ₹1000, discounts 20% and 10%. Final price = 1000×0.8×0.9 = ₹720, so net discount = 28%."],
+["Example 3","A seller gains 20% by selling at ₹600. CP = 600/1.2 = ₹500."]
+],
+formula:["Profit% = (SP−CP)/CP×100","Loss% = (CP−SP)/CP×100","SP after discount d% = MP(1−d/100)","Net successive discount = a+b−ab/100"],
+tips:["Write CP/MP/SP labels before calculating.","For reverse questions, use multipliers."],
+mistakes:["Calculating profit% on SP.","Adding successive discounts directly."]
+],
+"QA|Number System":{
+title:"Number System — Zero to CAT",intro:"Number System is the foundation for divisibility, remainders, factors, HCF/LCM and many integer questions.",
+sections:[
+["1. Number types","Natural numbers: 1,2,3,... Integers include zero and negatives. Rational numbers can be written p/q with q≠0."],
+["2. Prime numbers","A prime has exactly two positive divisors: 1 and itself."],
+["3. Divisibility","Useful tests: 2→last digit even; 3→digit sum divisible by 3; 5→last digit 0/5; 9→digit sum divisible by 9; 11→alternating digit sum divisible by 11."],
+["4. Factors","If N = p^a q^b, number of positive divisors = (a+1)(b+1)."],
+["5. HCF and LCM","For two positive integers a,b: a×b = HCF(a,b)×LCM(a,b)."],
+["6. Remainders","If N is divided by d, N = dq+r where 0≤r<d. Modular arithmetic helps track remainders without expanding huge numbers."],
+["7. CAT connection","Factorisation, cyclicity, units digit and remainder patterns are common tools."]
+],
+examples:[
+["Example 1","360 = 2^3×3^2×5. Number of divisors = 4×3×2 = 24."],
+["Example 2","Remainder of 17 when divided by 5 is 2, because 17=5×3+2."],
+["Example 3","For powers of 2, units digits cycle 2,4,8,6. Cycle length is 4."]
+],
+formula:["N=p1^a1 p2^a2... ⇒ divisors=(a1+1)(a2+1)...","a×b=HCF×LCM (positive integers)","N=dq+r, 0≤r<d"],
+tips:["Factor numbers instead of listing divisors.","Look for cycles in last-digit and remainder questions."],
+mistakes:["Calling 1 a prime.","Allowing remainder equal to divisor.","Mixing HCF and LCM logic."]
+],
+"QA|Time Speed Distance":{
+title:"Time, Speed & Distance — Zero to CAT",intro:"Distance, speed and time are linked by one basic relation. Most CAT questions become easier when you choose a consistent unit.",
+sections:[
+["1. Core relation","Distance = Speed×Time. Hence Speed = Distance/Time and Time = Distance/Speed."],
+["2. Unit conversion","1 m/s = 18/5 km/h and 1 km/h = 5/18 m/s."],
+["3. Relative speed","Same direction: difference of speeds. Opposite direction: sum of speeds."],
+["4. Trains","Time to cross a point = train length/speed. To cross a platform = (train+platform length)/speed."],
+["5. Boats","Downstream speed = boat speed + stream speed. Upstream = boat speed − stream speed."],
+["6. CAT connection","Translate every statement into distance/time equations before solving."]
+],
+examples:[
+["Example 1","At 60 km/h, a car covers 150 km in 2.5 hours."],
+["Example 2","Two people move opposite ways at 5 and 7 m/s. Relative speed = 12 m/s."],
+["Example 3","A 180 m train at 15 m/s crosses a pole in 12 seconds."]
+],
+formula:["D=ST","Relative speed: opposite = S1+S2; same = |S1−S2|","1 km/h=5/18 m/s"],
+tips:["Keep all distances and speeds in compatible units.","Draw a small timeline for meeting/catching problems."],
+mistakes:["Adding same-direction speeds.","Forgetting to convert hours/minutes/seconds."]
+],
+"QA|Time & Work":{
+title:"Time & Work — Zero to CAT",intro:"Work questions are rate questions. If a person completes a job in n days, their one-day work rate is 1/n.",
+sections:[
+["1. Work rate","If A takes 10 days, A's rate = 1/10 job/day."],
+["2. Combined work","If A and B work together, rates add: 1/a + 1/b."],
+["3. Efficiency","If A is twice as efficient as B, A's rate is twice B's rate; A takes half the time."],
+["4. Pipes","Filling pipes have positive rates; emptying pipes have negative rates."],
+["5. LCM method","For integer-friendly problems, assume total work as LCM of individual days, then use units/day."],
+["6. CAT connection","Translate 'days' into rates before combining people."]
+],
+examples:[
+["Example 1","A takes 6 days, B takes 3 days. Together rate = 1/6+1/3=1/2, so 2 days."],
+["Example 2","A is 50% more efficient than B. If B takes 12 days, A's time = 12/1.5 = 8 days."]
+],
+formula:["Rate=1/time","Combined rate=Σ rates","Time=Work/Rate"],
+tips:["Rates add; times generally do not.","Use LCM when numbers are awkward."],
+mistakes:["Adding completion times instead of rates.","Confusing efficiency with time."]
+],
+"QA|Algebra Basics":{
+title:"Algebra Basics — Zero to CAT",intro:"Algebra uses symbols to represent unknown quantities. The goal is to translate relationships into equations and manipulate them without changing equality.",
+sections:[
+["1. Like terms","3x+5x=8x; x and x² are not like terms."],
+["2. Identities","(a+b)²=a²+2ab+b²; (a−b)²=a²−2ab+b²; a²−b²=(a−b)(a+b)."],
+["3. Linear equations","Do the same operation to both sides. Example: 3x+5=20 ⇒ x=5."],
+["4. Factorisation","Look for common factors and standard identities before expanding."],
+["5. Inequalities","Multiplying/dividing an inequality by a negative reverses the sign."],
+["6. CAT connection","Algebra is used inside arithmetic, functions, geometry and DI."]
+],
+examples:[
+["Example 1","2(x+3)=14 ⇒ x+3=7 ⇒ x=4."],
+["Example 2","x²−9=(x−3)(x+3)."],
+["Example 3","−2x>6 ⇒ x<−3 because division by a negative reverses the sign."]
+],
+formula:["(a+b)²=a²+2ab+b²","(a−b)²=a²−2ab+b²","a²−b²=(a−b)(a+b)"],
+tips:["Simplify before expanding.","Check solutions by substituting them back."],
+mistakes:["Losing a negative sign.","Not reversing inequality after division by a negative."]
+],
+"QA|Geometry Basics":{
+title:"Geometry Basics — Zero to CAT",intro:"Geometry becomes manageable when you know angle relationships, triangle properties and area formulas.",
+sections:[
+["1. Lines & angles","Straight line = 180°. Around a point = 360°. Vertically opposite angles are equal."],
+["2. Parallel lines","With parallel lines, corresponding and alternate interior angles are equal."],
+["3. Triangle","Interior angles sum to 180°. Exterior angle equals sum of the two opposite interior angles."],
+["4. Similarity","Similar triangles have equal corresponding angles and proportional corresponding sides."],
+["5. Area","Triangle = 1/2×base×height; rectangle = length×breadth; circle = πr²."],
+["6. CAT connection","Most geometry questions are theorem-recognition plus algebra."]
+],
+examples:[
+["Example 1","Triangle angles 50° and 60° imply third angle 70°."],
+["Example 2","Two similar triangles have side ratio 2:3; area ratio is 4:9."],
+["Example 3","Circle radius 7 cm has area 49π cm²."]
+],
+formula:["Triangle angles sum=180°","Area triangle=1/2 bh","Area circle=πr²","Similar figures: area ratio=(side ratio)²"],
+tips:["Draw a clean diagram.","Write known angles and lengths on the diagram."],
+mistakes:["Assuming a diagram is to scale.","Using diameter where radius is required."]
+],
+"VARC|Reading Comprehension":{
+title:"Reading Comprehension — Zero to CAT",intro:"RC tests your ability to understand an author's argument, identify evidence, infer what follows and eliminate unsupported choices.",
+sections:[
+["1. Read for structure","Track topic → claim → support → contrast → conclusion. You do not need to memorise every sentence."],
+["2. Main idea","Ask: what is the passage mainly trying to establish? Avoid an option that is only one example or too broad."],
+["3. Inference","An inference must be supported by the passage. It is not the same as what sounds generally true."],
+["4. Tone","Describe the author's attitude using evidence: skeptical, analytical, critical, appreciative, neutral, etc."],
+["5. Elimination","Reject options that are extreme, irrelevant, contradicted, outside the passage or distort the author's claim."],
+["6. Time strategy","Start with comprehension, not speed. Improve speed gradually while preserving accuracy."]
+],
+examples:[
+["Example","If a passage says a policy produced short-term gains but created long-term costs, an answer saying 'the policy had no benefits at all' is too extreme."],
+["Inference example","If the author repeatedly contrasts popular belief with research evidence, the tone may be skeptical toward the popular belief."]
+],
+formula:["RC accuracy = correct answers / attempted answers × 100"],
+tips:["Use the passage as the evidence source.","For inference questions, demand a logical bridge from text to option."],
+mistakes:["Using outside knowledge.","Choosing an option because it sounds sophisticated.","Confusing author's mention of an idea with author's agreement."]
+],
+"VARC|Para Jumbles":{
+title:"Para Jumbles — Zero to CAT",intro:"Para jumbles ask you to arrange sentences into a coherent paragraph. Look for openings, mandatory pairs and logical transitions.",
+sections:[
+["1. Find the opener","An opening sentence usually introduces the topic without depending on an earlier sentence via words like 'this', 'such', 'they'."],
+["2. Mandatory pairs","Pronouns, definitions, examples and cause-effect links often create fixed relationships."],
+["3. Connectors","However, therefore, for example, meanwhile and similarly signal logical relationships."],
+["4. Chronology","Historical/process passages often follow time order."],
+["5. General → specific","A broad claim is often followed by explanation, example or evidence."],
+["6. CAT strategy","Build small chains instead of trying every permutation."]
+],
+examples:[
+["Example","A: 'The city introduced a new bus network.' B: 'This network reduced average waiting time.' The pronoun 'This network' strongly points to A→B."],
+["Connector","A sentence beginning 'However' generally needs a previous idea to contrast with."]
+],
+formula:["Useful chain types: claim→reason; concept→example; cause→effect; general→specific"],
+tips:["Do not rely only on vocabulary; use logic.","Check the completed paragraph from start to end."],
+mistakes:["Forcing an order because two sentences sound similar.","Ignoring pronoun/reference links."]
+],
+"DILR|Tables & Data":{
+title:"Tables & Data Interpretation — Zero to CAT",intro:"DI is often less about difficult arithmetic and more about organising data correctly and choosing the right calculation.",
+sections:[
+["1. Read before calculating","Identify rows, columns, units, totals and what each number represents."],
+["2. Build relationships","Convert raw data into percentages, ratios, differences or averages only when the question needs them."],
+["3. Approximation","When answer choices are far apart, estimate to save time. Do not approximate when options are close."],
+["4. Cross-check","A quick total or percentage sanity check can catch transcription errors."],
+["5. CAT connection","DI sets frequently combine multiple small concepts rather than testing one formula."]
+],
+examples:[
+["Example","If sales are 240, 300 and 360, growth from first to third = 120/240 = 50%, not 40%."],
+["Ratio example","If A:B=2:3 and total is 500, A=200 and B=300."]
+],
+formula:["Percentage change=(new−old)/old×100","Average=sum/n"],
+tips:["Underline units and years.","Write only the quantities you actually need."],
+mistakes:["Using wrong denominator.","Mixing monthly and yearly units.","Reading a row as a column."]
+],
+"DILR|Arrangements":{
+title:"Arrangements — Zero to CAT",intro:"Arrangement sets become easier when you convert verbal constraints into positions, blocks and exclusions.",
+sections:[
+["1. Linear arrangement","For n positions, start by identifying fixed positions and strongest constraints."],
+["2. Blocks","If A must sit next to B, treat AB as a block initially, then place the block."],
+["3. Relative order","Statements like A is left of B are directional constraints, not necessarily adjacent."],
+["4. Circular arrangement","Fix one person when rotations are equivalent, then arrange relative positions."],
+["5. CAT strategy","Do not branch blindly. Place the most constrained entity first."]
+],
+examples:[
+["Example","If A must be immediately before B, consider 'AB' as one unit. If there are 5 other units, count arrangements at the unit level before expanding."],
+["Constraint","If C cannot be at either end, remove the two end positions before placing C."]
+],
+formula:["Linear arrangements of n distinct items: n!","Circular arrangements (rotations same): (n−1)!"],
+tips:["Draw slots.","Mark impossible positions with ×."],
+mistakes:["Treating 'left of' as 'immediately left'.","Forgetting that a circular rotation may be identical."]
+],
+"DILR|Games & Tournaments":{
+title:"Games & Tournaments — Zero to CAT",intro:"Tournament sets combine arithmetic with logical constraints. Build a points table before solving.",
+sections:[
+["1. Table first","Create rows for teams/players and columns for games, wins, draws, losses and points."],
+["2. Translate scoring","Write the scoring rule explicitly before making deductions."],
+["3. Total games","For a single round-robin with n teams, number of games = n(n−1)/2."],
+["4. Constraints","Use totals, rankings and remaining games to eliminate possibilities."],
+["5. CAT strategy","Separate certain facts from possible cases."]
+],
+examples:[
+["Example","For 6 teams in a single round-robin, games = 6×5/2 = 15."],
+["Logic","If Team A has already played all but one game, its remaining points may be bounded by the final game's result."]
+],
+formula:["Single round-robin games=n(n−1)/2"],
+tips:["Maintain a clean table.","Track games played and games remaining."],
+mistakes:["Double-counting matches.","Assuming a result not stated by the set."]
+]
+};
+
+const practice={
+"QA|Percentages":[
+["A price rises from 400 to 460. Percentage increase?","15%","Increase=60; 60/400×100=15%."],
+["A number after a 20% decrease is 360. Original?","450","360/0.8=450."],
+["A quantity increases 10% and then 20%. Net increase?","32%","10+20+10×20/100=32%."]
+],
+"QA|Averages":[
+["Average of 8 numbers is 17. Sum?","136","17×8=136."],
+["Average of 10 is 50. Replace 30 with 70. New average?","54","Increase in total 40; average rises 4."],
+["Groups 10 and 20 have averages 40 and 55. Combined average?","50","(400+1100)/30=50."]
+],
+"QA|Profit & Loss":[
+["CP=500, SP=575. Profit%?","15%","75/500×100=15%."],
+["Two discounts 20% and 10%. Net discount?","28%","20+10−2=28%."],
+["SP=720 at 20% profit. CP?","600","720/1.2=600."]
+],
+"QA|Number System":[
+["How many positive divisors does 360 have?","24","360=2^3×3^2×5, so 4×3×2=24."],
+["Remainder when 29 is divided by 6?","5","29=6×4+5."],
+["Units digit cycle of powers of 2?","2,4,8,6","Cycle length 4."]
+],
+"QA|Time Speed Distance":[
+["A car covers 180 km at 60 km/h. Time?","3 hours","180/60=3."],
+["Speeds 8 and 5 m/s, opposite directions. Relative speed?","13 m/s","Add opposite-direction speeds."],
+["A 150m train at 10m/s crosses a pole. Time?","15 s","150/10=15."]
+],
+"QA|Time & Work":[
+["A does a job in 5 days. One-day rate?","1/5","Rate=1/time."],
+["A=6 days, B=3 days. Together?","2 days","1/6+1/3=1/2."],
+["B is twice as efficient as A. A takes 12 days. B?","6 days","Double efficiency means half time."]
+],
+"QA|Algebra Basics":[
+["Solve 3x+4=19.","5","3x=15, x=5."],
+["Factor x²−25.","(x−5)(x+5)","Difference of squares."],
+["Solve −3x>12.","x<−4","Divide by negative and reverse sign."]
+],
+"QA|Geometry Basics":[
+["Two triangle angles are 40° and 65°. Third?","75°","180−105=75."],
+["Area of triangle b=10,h=8?","40","1/2×10×8=40."],
+["Similar triangles side ratio 2:5. Area ratio?","4:25","Square the side ratio."]
+],
+"VARC|Reading Comprehension":[
+["An option introduces information not present in the passage. Keep it?","No","RC answers must be supported by the passage."],
+["A statement says a policy had benefits but also long-term costs. 'It had no benefits' is what type of error?","Too extreme","It contradicts the stated balance."]
+],
+"DILR|Tables & Data":[
+["Values 100→125. Percentage increase?","25%","25/100×100=25%."],
+["If A:B=3:5 and total=64, A?","24","3/8×64=24."]
+],
+"DILR|Games & Tournaments":[
+["6 teams single round-robin: games?","15","6×5/2=15."],
+["If a match can be won by exactly one team, each match contributes one win. 10 matches imply total wins?","10","One win per match."]
+]
+};
+
+function esc(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function allKeys(){return Object.keys(syllabus).flatMap(sec=>syllabus[sec].map(x=>sec+"|"+x[0]))}
+function pct(){let keys=allKeys();let d=keys.filter(k=>state.done[k]).length;return Math.round(d/keys.length*100)}
+function setNav(active){document.querySelectorAll("#nav button").forEach(b=>b.classList.toggle("active",b.dataset.v===active))}
+function topicList(sec,filter=""){
+let arr=syllabus[sec].filter(x=>(x[0]+" "+x[1]).toLowerCase().includes(filter.toLowerCase()));
+return arr.map(x=>{let k=sec+"|"+x[0], done=!!state.done[k];return `<div class="card topic"><div><input class="check" type="checkbox" ${done?"checked":""} onchange="toggleDone('${k.replace(/'/g,"\\'")}')"> <strong>${esc(x[0])}</strong><div class="muted small">${esc(x[1])}</div></div><button onclick="openLesson('${k.replace(/'/g,"\\'")}')">Study →</button></div>`}).join("")||`<div class="card muted">No matching topics.</div>`;
+}
+function dashboard(){
+return `<div class="hero"><h1>CAT Master — Zero to CAT</h1><p>A teacher-style preparation system: learn the concept, see examples, practise, test yourself and analyse mistakes.</p></div>
+<div class="grid">
+<div class="card"><div class="muted">Overall topic progress</div><div class="big">${pct()}%</div><div class="progress"><i style="width:${pct()}%"></i></div></div>
+<div class="card"><div class="muted">Topics completed</div><div class="big">${allKeys().filter(k=>state.done[k]).length}/${allKeys().length}</div><div class="muted small">Saved on this device</div></div>
+<div class="card"><div class="muted">Mistake book</div><div class="big">${state.mistakes.length}</div><div class="muted small">Questions saved for revision</div></div>
+</div>
+<div class="grid2" style="margin-top:12px">
+${["QA","DILR","VARC"].map(s=>{let keys=syllabus[s].map(x=>s+"|"+x[0]),d=keys.filter(k=>state.done[k]).length,p=Math.round(d/keys.length*100);return `<div class="card"><h3>${s==="QA"?"Quantitative Aptitude":s==="DILR"?"Data Interpretation & Logical Reasoning":"Verbal Ability & Reading Comprehension"}</h3><div class="muted">${d}/${keys.length} topics complete</div><div class="progress" style="margin-top:9px"><i style="width:${p}%"></i></div><button class="toolbar primary" style="margin-top:12px" onclick="go('${s}')">Open ${s} →</button></div>`}).join("")}
+</div>
+<div class="card" style="margin-top:12px"><h2>How to use this website</h2><ol><li>Open a topic and read the lesson from top to bottom.</li><li>Do the worked examples yourself before reading the solution.</li><li>Attempt practice without looking at the answer.</li><li>Mark the topic complete only when you can solve basic questions without help.</li><li>Record mistakes and revisit weak topics before mocks.</li></ol></div>`;
+}
+function sectionView(sec){
+return `<div class="hero"><h1>${sec==="QA"?"Quantitative Aptitude":sec==="DILR"?"DILR":"VARC"}</h1><p>Study in order. Every topic has a lesson page, examples and practice where available.</p></div>
+<input class="search" placeholder="Search topics..." oninput="document.getElementById('topics').innerHTML=topicList('${sec}',this.value)">
+<div id="topics" style="margin-top:12px">${topicList(sec)}</div>`;
+}
+function openLesson(k){
+let l=lessons[k];
+if(!l){l={title:k.split("|")[1]+" — Guided Study",intro:"This topic is in the full syllabus. Use the concept map below as your study checklist, then practise the set.",sections:[["Definition","Start by writing a one-line definition in your own words."],["Core concepts","Break the topic into 3–5 rules or relationships. Learn one at a time."],["Worked example","Take a simple numerical/example problem and solve it step by step."],["CAT application","Identify how the concept can appear inside a mixed CAT set."],["Practice plan","Do 5 basic, 5 medium and 5 CAT-level questions before marking it complete."]],examples:[["Self-check","Explain the concept aloud without looking at notes. If you cannot, revisit the definition and example."]],formula:["Write the formulas/rules for this topic in your own short-note page."],tips:["Do not memorise a formula without understanding what each symbol means.","Use timed practice only after accuracy is stable."],mistakes:["Do not mark a topic complete just because you read it once."]}}
+let ksafe=k.replace(/'/g,"\\'");
+return `<div class="toolbar"><button onclick="go('${k.split("|")[0]}')">← Back to ${k.split("|")[0]}</button><button class="primary" onclick="toggleDone('${ksafe}')">${state.done[k]?"✓ Completed":"Mark Complete"}</button><button onclick="addToMistakes('${ksafe}')">⚠ Add to Mistake Book</button></div>
+<article class="lesson"><h2>${esc(l.title)}</h2><p class="muted">${esc(l.intro)}</p>
+${l.sections.map(s=>`<h3>${esc(s[0])}</h3><p>${esc(s[1])}</p>`).join("")}
+<h3>Worked examples</h3>${l.examples.map(e=>`<div class="example"><strong>${esc(e[0])}</strong><div>${esc(e[1])}</div></div>`).join("")}
+<h3>Formula / rule box</h3><div class="formula">${l.formula.map(x=>esc(x)).join("\\n")}</div>
+<h3>Smart tips</h3><div class="tip">${l.tips.map(x=>`• ${esc(x)}<br>`).join("")}</div>
+<h3>Common mistakes</h3><div class="mistake">${l.mistakes.map(x=>`• ${esc(x)}<br>`).join("")}</div>
+</article>
+${practice[k]?practiceView(k):`<div class="card" style="margin-top:12px"><h3>Practice is next</h3><p class="muted">This topic is mapped into the syllabus. Continue with the lesson, create your own 5-question drill, then use the Test section.</p></div>`}`;
+}
+function practiceView(k){
+return `<div class="card" style="margin-top:12px"><h2>Practice Lab</h2><p class="muted">Try each question before revealing the answer.</p>${practice[k].map((q,i)=>`<div class="q"><strong>Q${i+1}. ${esc(q[0])}</strong><div class="opts"><button onclick="showAns('${k.replace(/'/g,"\\'")}-${i}')">Show answer</button></div><div class="answer" id="ans-${k.replace(/[^a-zA-Z0-9]/g,"")}-${i}"><strong>Answer: ${esc(q[1])}</strong><br>${esc(q[2])}</div></div>`).join("")}</div>`;
+}
+function testView(){
+let qs=[
+["QA","If a quantity rises 25% and then falls 20%, net change?","0%","Successive multipliers: 1.25×0.8=1."],
+["QA","Average of 5 numbers is 24. If one number 14 is removed, new average?","26.5","Total=120; remaining=106; 106/4=26.5."],
+["DILR","A:B=2:3 and B:C=4:5. Ratio A:B:C?","8:12:15","Equalise B: 2:3 becomes 8:12; 4:5 becomes 12:15."],
+["VARC","An answer choice uses an extreme word not supported by the passage. What should you do?","Eliminate it unless text supports it","Extreme claims need direct support."]
+];
+return `<div class="hero"><h1>Mixed Test</h1><p>Short diagnostic test. This is original CAT-style practice, not an official past-year paper.</p></div>${qs.map((q,i)=>`<div class="card q"><span class="badge">${q[0]}</span><h3>Q${i+1}. ${q[1]}</h3><button class="toolbar primary" onclick="document.getElementById('t${i}').classList.toggle('show')">Reveal solution</button><div id="t${i}" class="answer"><strong>${q[2]}</strong><br>${q[3]}</div></div>`).join("")}`;
+}
+function pyqView(){
+return `<div class="hero"><h1>PYQ Hub</h1><p>Use this area to organise genuine previous-year questions you obtain from authorised/official sources. The built-in questions are clearly labelled CAT-style so they are not misrepresented as official PYQs.</p></div>
+<div class="grid2"><div class="card"><h3>PYQ workflow</h3><ol><li>Choose year and section from your authorised source.</li><li>Tag the question by topic.</li><li>Attempt under a timer.</li><li>Record why you got it wrong.</li></ol></div><div class="card"><h3>What to analyse</h3><ul><li>Concept gap</li><li>Calculation error</li><li>Misread condition</li><li>Bad question selection</li><li>Time pressure</li></ul></div></div>
+<div class="card" style="margin-top:12px"><h3>CAT-style practice bank</h3><p class="muted">Open QA/DILR/VARC topics to access the original practice questions included in this version.</p></div>`;
+}
+function roadmapView(){
+let weeks=[
+["Phase 0 — Foundation","Weeks 1–2","Basic arithmetic, fractions, percentages, ratios, averages; daily reading; basic LR games."],
+["Phase 1 — Core syllabus","Weeks 3–8","Complete arithmetic + algebra basics; start geometry; 3–4 DILR sets/week; daily RC."],
+["Phase 2 — CAT application","Weeks 9–14","Mixed QA, tougher DILR, RC inference/tone, timed sectional drills."],
+["Phase 3 — Tests & analysis","Weeks 15 onward","Sectionals + mocks; spend at least as much time analysing mistakes as taking tests."]
+];
+return `<div class="hero"><h1>Zero → CAT Roadmap</h1><p>Use the roadmap as a default. Adjust the pace based on your diagnostic score and available study hours.</p></div>${weeks.map((w,i)=>`<div class="card" style="margin-top:10px"><span class="badge blue">${w[1]}</span><h2>${w[0]}</h2><p>${w[2]}</p><strong>Exit condition:</strong> Can explain the concepts, solve representative questions accurately and identify mistakes.</div>`).join("")}
+<div class="card" style="margin-top:12px"><h2>Daily template</h2><ul><li>30–45 min concept learning</li><li>45–60 min QA practice</li><li>30–45 min DILR set</li><li>30–45 min RC/VARC</li><li>15 min error log + revision</li></ul><p class="muted small">The exact split should change as your strengths and weaknesses change.</p></div>`;
+}
+function mistakesView(){
+return `<div class="hero"><h1>Mistake Book</h1><p>Every mistake should become a future strength. This list is saved locally on this phone.</p></div>
+${state.mistakes.length?state.mistakes.map((m,i)=>`<div class="card topic"><div><strong>${esc(m)}</strong><div class="muted small">Review the lesson and redo 2–3 questions without help.</div></div><button onclick="state.mistakes.splice(${i},1);save();render('mistakes')">Remove</button></div>`).join(""):`<div class="card"><h3>No mistakes saved yet.</h3><p class="muted">Open a lesson and use “Add to Mistake Book” when a concept causes repeated errors.</p></div>`}`;
+}
+function render(v="home"){
+setNav(v);let el=document.getElementById("view");
+if(v==="home")el.innerHTML=dashboard();
+else if(v==="QA"||v==="DILR"||v==="VARC")el.innerHTML=sectionView(v);
+else if(v==="test")el.innerHTML=testView();
+else if(v==="pyq")el.innerHTML=pyqView();
+else if(v==="roadmap")el.innerHTML=roadmapView();
+else if(v==="mistakes")el.innerHTML=mistakesView();
+else if(v.startsWith("lesson:"))el.innerHTML=openLesson(v.slice(7));
+window.scrollTo({top:0,behavior:"smooth"});
+}
+function go(v){render(v)}
+function openLesson(k){render("lesson:"+k)}
+function toggleDone(k){state.done[k]=!state.done[k];save();render(location.hash?location.hash.slice(1):"home")}
+function addToMistakes(k){if(!state.mistakes.includes(k))state.mistakes.push(k);save();alert("Added to Mistake Book.");}
+function showAns(key){
+let parts=key.split("-");let i=parts.pop();let base=parts.join("-").replace(/[^a-zA-Z0-9]/g,"");let e=document.getElementById("ans-"+base+"-"+i);if(e)e.classList.add("show");
+}
+document.getElementById("nav").innerHTML=[
+["home","🏠 Dashboard"],["QA","📐 QA"],["DILR","🧩 DILR"],["VARC","📖 VARC"],["test","🧪 Test"],["pyq","📜 PYQ"],["roadmap","🗺️ Roadmap"],["mistakes","⚠️ Mistakes"]
+].map(x=>`<button data-v="${x[0]}" onclick="go('${x[0]}')">${x[1]}</button>`).join("");
+render("home");
 </script>
 </body>
 </html>
